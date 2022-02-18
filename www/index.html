@@ -1,50 +1,189 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8">
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
-            https://cordova.apache.org/docs/en/latest/
-        Some notes:
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
+        <meta name="viewport" content="initial-scale=1.0, width=device-width, viewport-fit=cover,maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="css/index.css">
-        <title>Hello World</title>
+        <title>Lottery</title>
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+            <div id="page" class="page">
+                <div id="result" class="result">
+                    <span id="result-value">0%</span>
+                </div>
+                <div id="numbers" class="numbers">
+                    <table id="numbers-table" class="numbers-table">
+                        <tr>
+                            <th>
+                                <input type="text" id="letter" name="letter" class="letter" maxlength="1" onchange="focusNext(this)">
+                            </th>
+                            <th>
+                                <input type="text" id="number-1" name="number-1" class="number" maxlength="2">
+                            </th>
+                            <th>
+                                <input type="text" id="number-2" name="number-2" class="number" maxlength="2">
+                            </th>
+                            <th>
+                                <input type="text" id="number-3" name="number-3" class="number" maxlength="2">
+                            </th>
+                            <th>
+                                <input type="text" id="number-4" name="number-4" class="number" maxlength="2">
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="letters" class="letters">
+                    <table>
+                        <tr>
+                            <th>
+                                <input type="button" id="a" name="a" class="key" value="A" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="b" name="b" class="key" value="B" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="c" name="c" class="key" value="C" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="d" name="d" class="key" value="D" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="e" name="e" class="key" value="E" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="f" name="f" class="key" value="F" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="g" name="g" class="key" value="G" onclick="setLetter(this.value)">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="button" id="h" name="h" class="key" value="H" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="i" name="i" class="key" value="I" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="j" name="j" class="key" value="J" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="k" name="k" class="key" value="K" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="l" name="l" class="key" value="L" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="m" name="m" class="key" value="M" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="n" name="n" class="key" value="N" onclick="setLetter(this.value)">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="button" id="o" name="o" class="key" value="O" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="p" name="p" class="key" value="P" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="q" name="q" class="key" value="Q" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="r" name="r" class="key" value="R" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="s" name="s" class="key" value="S" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="t" name="t" class="key" value="T" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="u" name="u" class="key" value="U" onclick="setLetter(this.value)">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="button" id="v" name="v" class="key" value="V" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="w" name="w" class="key" value="W" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="x" name="x" class="key" value="X" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="y" name="y" class="key" value="Y" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="z" name="z" class="key" value="Z" onclick="setLetter(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" name="blank" class="key">
+                            </th>
+                            <th>
+                                <input type="button" name="blank" class="key">
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="keys" class="keys">
+                    <table>
+                        <tr>
+                            <th>
+                                <input type="button" id="one" name="one" value="1" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="two" name="two" value="2" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="three" name="three" value="3" class="key" onclick="numberClick(this.value)">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="button" id="four" name="four" value="4" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="five" name="five" value="5" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="six" name="six" value="6" class="key" onclick="numberClick(this.value)">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="button" id="seven" name="seven" value="7" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="eight" name="eight" value="8" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" id="nine" name="nine" value="9" class="key" onclick="numberClick(this.value)">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="button" name="reset" class="key" value="R" onclick="reset()">
+                            </th>
+                            <th>
+                                <input type="button" id="zero" name="zero" value="0" class="key" onclick="numberClick(this.value)">
+                            </th>
+                            <th>
+                                <input type="button" name="ok" class="key" value="OK" onclick="ok()">
+                            </th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
+        <script src="js/script.js"></script>
     </body>
 </html>
